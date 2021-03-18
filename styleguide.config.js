@@ -118,6 +118,13 @@ module.exports = {
 						'src/components/MultiselectTags/MultiselectTags.vue',
 					],
 				},
+				{
+					name: 'List items',
+					components: [
+						'src/components/ListItem/ListItem.vue',
+						'src/components/ListItemIcon/ListItemIcon.vue',
+					],
+				},
 			],
 		},
 	],
