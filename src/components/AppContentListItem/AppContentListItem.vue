@@ -63,7 +63,7 @@
 			:class="{ 'active' : active }"
 			href="#"
 			class="acli"
-			:aria-label="conversationLinkAriaLabel"
+			:aria-label="linkAriaLabel"
 			@mouseover="handleHover"
 			@focus="handleFocus"
 			@blur="handleBlur"
@@ -106,7 +106,7 @@
 					<Actions
 						ref="actions"
 						menu-align="right"
-						:aria-label="conversationSettingsAriaLabel"
+						:aria-label="actionsAriaLabel"
 						@update:open="handleActionsUpdateOpen">
 						<!-- @slot Provide the actions for the right side quick menu -->
 						<slot
@@ -185,6 +185,22 @@ export default {
 			type: Boolean,
 			default: false,
 		},
+
+		/**
+		 * Aria label for the wrapper element.
+		 */
+		linkAriaLable: {
+			type: String,
+			default: '',
+		},
+
+		/**
+		 * Aria label for the actions toggle.
+		 */
+		actionsAriaLabel: {
+			type: String,
+			default: '',
+		},
 	},
 
 	data() {
@@ -220,14 +236,6 @@ export default {
 			return {
 				is: 'li',
 			}
-		},
-
-		conversationLinkAriaLabel() {
-			return t('spreed', 'Conversation "{conversationName}"', { conversationName: this.title })
-		},
-
-		conversationSettingsAriaLabel() {
-			return t('spreed', 'Settings for conversation "{conversationName}"', { conversationName: this.title })
 		},
 
 		// Check if the subtitle slot is populated
