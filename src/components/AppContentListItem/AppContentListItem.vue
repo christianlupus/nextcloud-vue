@@ -94,8 +94,11 @@
 							<slot name="subtitle" />
 						</span>
 						<span v-if="!displayActions" class="acli-content__line-two__counter">
-							<slot
-								name="counter" />
+							<AppNavigationCounter
+								v-if="counterNumber !== 0"
+								:highlighted="counterHighlighted">
+								{{ counterNumber }}
+							</AppNavigationCounter>
 						</span>
 					</div>
 				</div>
@@ -120,12 +123,14 @@
 
 <script>
 import Actions from '../Actions'
+import AppNavigationCounter from '../AppNavigationCounter'
 
 export default {
 	name: 'AppContentListItem',
 
 	components: {
 		Actions,
+		AppNavigationCounter,
 	},
 
 	props: {
@@ -201,6 +206,24 @@ export default {
 			type: String,
 			default: '',
 		},
+
+		/**
+		 * If different from from 0 this component will display the
+		 * AppNavigationCounter component
+		 */
+		 counterNumber: {
+			 type: Number,
+			 default: 0,
+		 },
+
+		/**
+		 * Toggles the highlighted state of the counter
+		 */
+		 counterHighlighted: {
+			 type: Boolean,
+			 default: false,
+		 },
+
 	},
 
 	data() {
@@ -394,6 +417,10 @@ export default {
 				white-space: nowrap;
 				text-overflow: ellipsis;
 				color: var(--color-text-lighter);
+			}
+
+			&__counter {
+				margin: 2px 4px 0 0;
 			}
 		}
 		&__actions {
