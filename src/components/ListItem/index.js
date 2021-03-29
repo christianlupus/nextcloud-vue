@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (c) 2019 Marco Ambrosini <marcoambrosini@pm.me>
+ * @copyright Copyright (c) 2021 Marco Ambrosini <marcoambrosini@pm.me>
  *
  * @author Marco Ambrosini <marcoambrosini@pm.me>
  *
@@ -20,6 +20,6 @@
  *
  */
 
-import AppContentListItem from './AppContentListItem'
+import ListItem from './ListItem'
 
-export default AppContentListItem
+export default ListItem

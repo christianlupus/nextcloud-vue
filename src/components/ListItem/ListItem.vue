@@ -1,5 +1,5 @@
 <!--
-  - @copyright Copyright (c) 2019 Marco Ambrosini <marcoambrosini@pm.me>
+  - @copyright Copyright (c) 2021 Marco Ambrosini <marcoambrosini@pm.me>
   -
   - @author Marco Ambrosini <marcoambrosini@pm.me>
   -
@@ -22,7 +22,7 @@
 
 # Usage
 ```
-<AppContentListItem
+<listItem
 		:title="'Title of the element'"
 		:bold="false"
 		:details="'One hour ago'"
@@ -49,20 +49,20 @@
 				Button three
 			</ActionButton>
 		</template>
-	</AppContentListItem>
+	</listItem>
 ```
 </docs>
 
 <template>
 	<nav-element
-		class="acli_wrapper"
+		class="list-item_wrapper"
 		v-bind="navElement">
 		<a
 			:id="anchorId"
-			ref="acli"
+			ref="list-item"
 			:class="{ 'active' : active }"
 			href="#"
-			class="acli"
+			class="list-item"
 			:aria-label="linkAriaLabel"
 			@mouseover="handleHover"
 			@focus="handleFocus"
@@ -73,27 +73,27 @@
 			@keydown.esc="displayActions = false">
 			<!-- @slot This slot is used for the avatar or icon -->
 			<slot name="icon" />
-			<div class="acli-content">
-				<div class="acli-content__main">
-					<div class="acli-content__line-one">
+			<div class="list-item-content">
+				<div class="list-item-content__main">
+					<div class="list-item-content__line-one">
 						<span
-							class="acli-content__line-one__title"
+							class="list-item-content__line-one__title"
 							:class="{'bold': bold}">
 							{{ title }}
 						</span>
 						<span
 							v-if="hasDetails && !displayActions"
-							class="acli-content__line-one__details">
+							class="list-item-content__line-one__details">
 							{{ details }}
 						</span>
 					</div>
-					<div class="acli-content__line-two"
+					<div class="list-item-content__line-two"
 						:class="{'bold': bold}">
 						<span v-if="hasSubtitle" class="list-item-content__line-two__subtitle">
 							<!-- @slot Slot for the second line of the component -->
 							<slot name="subtitle" />
 						</span>
-						<span v-if="!displayActions" class="acli-content__line-two__counter">
+						<span v-if="!displayActions" class="list-item-content__line-two__counter">
 							<AppNavigationCounter
 								v-if="counterNumber !== 0"
 								:highlighted="counterHighlighted">
@@ -104,7 +104,7 @@
 				</div>
 				<div
 					v-show="displayActions"
-					class="acli-content__actions"
+					class="list-item-content__actions"
 					@click.prevent.stop="">
 					<Actions
 						ref="actions"
@@ -126,7 +126,7 @@ import Actions from '../Actions'
 import AppNavigationCounter from '../AppNavigationCounter'
 
 export default {
-	name: 'AppContentListItem',
+	name: 'ListItem',
 
 	components: {
 		Actions,
@@ -194,7 +194,7 @@ export default {
 		/**
 		 * Aria label for the wrapper element.
 		 */
-		linkAriaLable: {
+		linkAriaLabel: {
 			type: String,
 			default: '',
 		},
@@ -335,7 +335,7 @@ export default {
 
 <style lang="scss" scoped>
 
-.acli_wrapper{
+.list-item_wrapper{
 	position: relative;
 	width: 100%;
 	.actions {
@@ -345,8 +345,8 @@ export default {
 	}
 }
 
-// AppContentListItem
-.acli {
+// listItem
+.list-item {
 	position: relative;
 	display: flex;
 	align-items: center;
