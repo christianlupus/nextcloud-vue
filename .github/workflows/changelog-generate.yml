@@ -1,0 +1,55 @@
+name: Changelog
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - stable*
+
+jobs:
+  build:
+    name: Auto generation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check-out
+        uses: actions/checkout@v2
+
+      - name: Get latest released tag
+        id: last_release
+        uses: InsonusK/get-latest-release@v1.0.1
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+          exclude_types: draft|prerelease
+          view_top: 1
+
+      - name: Generate changelog
+        uses: heinrichreimer/github-changelog-generator-action@v2.2
+        with:
+          sinceTag: ${{ steps.last_release.outputs.tag_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          excludeLabels: 'duplicate,question,invalid,wontfix,dependencies'
+          breakingLabel: '## Breaking'
+          enhancementLabel: '## Enhancements'
+          bugsLabel: '## Fixed bugs'
+          deprecatedLabel: '## Deprecated'
+          removedLabel: '## Removed'
+          securityLabel: '## Security fixes'
+          issuesLabel: '## Closed issues'
+          prLabel: '## Closed pull requests'
+          maxIssues: 0
+          issues: false
+          pulls: true
+          issuesWoLabels: true
+          prWoLabels: true
+          verbose: true
+          author: true
+
+      - name: Print changelog to console
+        run: cat CHANGELOG.md
+
+      - name: Upload changelog
+        uses: actions/upload-artifact@v2
+        with:
+          name: Changelog
+          path: CHANGELOG.md
